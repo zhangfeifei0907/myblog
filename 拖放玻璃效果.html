@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			
+/**, *:after, *:before {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}*/
+* {margin:0;padding:0;border: 0 none;position: relative;}
+
+h2:after {content:"\2606";font-family: 'entypo', sans-serif; display: inline-block; margin-left: 1rem;;
+}
+.outside {
+  background: url(img/bg01.jpg) no-repeat 50% fixed;
+  background-size: cover;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  font-family: roboto;
+  font-weight: 100;
+  overflow-y: scroll;
+}
+body {
+  width: 100%;
+  min-height: 100%;
+ 
+}
+article {
+  background: inherit;
+  position: relative;
+  width: 60%;
+  margin: 10vh auto 15vh;
+  border-radius: 15px;
+  border: 10px solid rgba(255,255,255,.15);
+  box-shadow: 1px 1px 4px rgba(0,0,0,.3);
+  z-index: 5;
+  font-size: 1.4rem;
+  cursor: move;
+}
+article:before {
+  content: '';
+  position: absolute;
+  top: 0; left:0; right:0; bottom:0;
+  background: inherit;
+  filter: blur(5px); 
+  -webkit-filter: blur(6px); 
+  -moz-filter: blur(6px);
+  -o-filter: blur(6px);
+  -ms-filter: blur(6px);
+  filter: url(#blur);filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='6');
+}
+
+h1 {
+  font-size: 5rem;
+  font-weight: 100;
+  text-align: center;
+  color: #183142;
+}
+h2 {
+  font-size: 2rem;
+  line-height: 2rem;
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
+  color: #183142;
+  border-top: 1px solid rgba(255,255,255,.3);
+  margin: 2rem 0 0 0;
+  padding: 1rem 0;
+}
+
+
+svg {
+  height:0;
+  width: 0;
+  position: absolute;
+}
+
+		</style>
+	</head>
+	<body><div class="outside">
+		<article class='drag'>
+  			<h2 >Inside blur pure CSS</h2>
+		</article>
+
+		<article>
+			<h1>DINAMYC INSIDE BLUR<br/> PURE CSS</h1>
+			<header>zhangfeifei</header>
+		</article>
+</div>
+
+
+<!--<article>
+  <p>You can see the complementary version</p>
+  <h1><a href='http://codepen.io/Kseso/full/oipwL' title='see the outside version'>DINAMYC OUTSIDE BLUR<br/> PURE CSS</a></h1>
+</article>
+
+<p class='aviso'>Link the <a href='http://ksesocss.blogspot.com/2013/11/dinamyc-easy-rwd-blur-pure-css.html'>POST</a>, show the PEN</p>-->
+
+
+<svg version="1.1" xmlns='http://www.w3.org/2000/svg'>
+ <filter id='blur'>
+   <feGaussianBlur stdDeviation='6' />
+   </filter>
+</svg>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<script>
+		$(function() {
+	$( "article" ).draggable();
+});
+	</script>
+	</body>
+</html>

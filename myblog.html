@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="css/myblog.css" />
+		<title>Faye's Page</title>
+		<style>
+
+			
+			body .content #myHead{
+				text-align: center;
+				font-size: 30px;
+				width: 500px;
+				height: 1000px;
+				overflow-x: hidden;
+				background-color: antiquewhite;
+				}
+				
+			body .content #myHead li:hover{cursor:pointer;}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="first">
+				<article class="alignCenter selfFace"><!--总概括-->
+					<div class="circle">
+						<div class="inner"></div>
+					</div>
+					<header>一个喜欢自由与简洁的人</header>
+					<aside>简单的设计需要精致的细节，复杂的设计需要简约的美感。</aside>
+					<i>more</i>
+				</article>
+				<article class="selfIntroduce">
+					<header>不断前行，<br />只为心中的那一份自由</header>
+					<section>走过很多弯路，计算机出身，毕业后一直从事销售工作。卖房子、做企业咨询、运营客户，最终确定做前端开发。希望带给用户更好的产品，更好的用户体验。不断改进修正，是一个让我激动的过程，我喜欢化繁为简，把本质的东西，自然地表达出来。</section>
+				</article>
+			</div>
+			<article class="singlePage">
+				<header class="boxHead">Some story about Life.</header>
+				<aside>Click any box below</aside>
+				<div class="boxContainer" id="test">
+					<div class="littleBox" data-cta-target=".modal-1"></div>
+					<div class="littleBox" data-cta-target=".modal-2"></div>
+					<div class="littleBox" data-cta-target=".modal-3"></div>
+					<div class="littleBox" data-cta-target=".modal-4"></div>
+					<div class="littleBox" data-cta-target=".modal-5"></div>
+					<div class="littleBox" data-cta-target=".modal-6"></div>
+					<div class="littleBox" data-cta-target=".modal-7"></div>
+				</div>
+			</article>
+			<div class="showBoxes">
+					<article class="modal modal-1">
+						<header>Ingress</header>
+						<aside>The world around you is not what it seems.</aside>
+						<img src="img/ingress.png" /><br />
+						<section>2014年10月25日深圳园博园，简称“菊花”行动。超过536条link，蓝绿军超过45位agent的参与配合。Yeah!</section>
+					</article>
+					<article class="modal modal-2">
+						<header>骑车去珠海</header>
+						<section></section>
+					</article>
+					<article class="modal modal-3"></article>
+					<article class="modal modal-4"></article>
+					<article class="modal modal-5"></article>
+					<article class="modal modal-6"></article>
+					<article class="modal modal-7"></article>
+					
+				</div>
+	 	</div>
+	 	<!--<svg version="1.1" xmlns='http://www.w3.org/2000/svg'>
+ <filter id='blur'>
+   <feGaussianBlur stdDeviation='6' />
+   </filter>
+</svg>-->
+		<script src="js/jquery-1.8.2.min.js"></script>
+		<script src="js/jquery.boxloader.min.js"></script>
+		<script src="js/cta.js"></script>
+		<script>
+			$(document).ready(function(){
+				
+				//This is the ways about boxes come out.data-cta-target
+				var changeModal;
+				function closeShowingBox(){
+					 var showBox=document.querySelector('.modal.show');
+					 if(!showBox) return;
+					 showBox.classList.remove('show');
+					 if (changeModal) {
+						changeModal();
+						changeModal = null;
+					 }
+				}
+				document.addEventListener('click',function(e){ 
+					var trigger=e.target;
+					var target=document.querySelector(trigger.dataset.ctaTarget);
+					if(trigger.dataset.ctaTarget){
+						changeModal=cta(trigger,target,{relativeToWindow: true},function showModal(){
+							target.classList.add('show');});
+					}else if(trigger.classList.contains('show')){
+						closeShowingBox();
+					}
+				});
+				
+//					$('.modal').bind('click',function(){
+//						if(this.classList.contains('show')){
+//							this.classList.remove('show');
+//						}
+//						
+//					});
+				
+				
+				
+				
+			});
+				
+//			clickBtn.addEventListener('click',function(event){
+//				var trigger=event.target;
+//				alert(trigger.className);
+//				var target=document.querySelector(trigger.dataset.ctaTarget);
+//				if(trigger.dataset.ctaTarget){
+//					changeModal=cta(trigger,target,{relativeToWindow: true;},function showModal(){
+//						target.classList.add('show');
+//					});
+//				}
+//			})		
+		
+		
+		
+		
+		//这是关于各个page主要元素的出现方式
+		
+			$(document).ready(function(){
+				$('.first i').click(scroll);
+				
+				//第三页，boxContainer的出现方式，从下浮现，动画过渡时间2s
+				$(".boxContainer").boxLoader({
+				    direction:"y",
+				    position: "50%",
+				    effect: "fadeIn",
+				    duration: "2s",
+				    windowarea: "50%"
+				});
+			
+			});
+			
+			function scroll(){
+						$('html, body').animate({
+			        			scrollTop: $('article.selfIntroduce').offset().top
+						    }, {
+						    	queue: false,
+						    	duration: 1000});
+			}
+// 
+
+			
+		
+			
+			
+			
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <title></title>
+</head>
+<body>
+<form id="myform">
+    <!--title,categoryId,keyword,content-->
+    <label>Title:<input id="title" type="text"/></label><br/>
+    <label>Category:<input name="category" type="radio" value="1"/>CSS</label>
+    Category:<br>
+    <label><input name="category" type="radio" value="2">HTML5</label>
+    <label><input name="category" type="radio" value="3" />JavaScript</label>
+    <label><input name="category" type="radio" value="4"/>Database</label>
+    <label><input name="category" type="radio" value="5"/>Design & Thinking</label>
+    <label><input name="category" type="radio" value="6"/>Resource</label><br>
+    <label>KeyWord:<input id="keyword" type="text"><br/></label>
+
+    <label>Content:<br><textarea id="content" cols="100" rows="20"></textarea></label><br>
+    <label><input type="submit" id="sent" value="sent" /></label>
+</form>
+<script>
+    $(document).ready(function(){
+        $('#myform').submit(function(){
+            var title=$('#title').val();
+            console.log('ok');
+            var categoryId = $("input[name='category']:checked").val();
+            var content=$('#content').val();
+            var keyword=$('#keyword').val();
+            content=content.replace(/\r?\n/g, "<br/>").replace(/\s/g,"&nbsp;");
+            console.log('title is:'+title+' typevalue is:'+categoryId);
+            console.log('content is:'+content+' keyword is:'+keyword);
+
+            $.ajax({
+                type:'post',
+                url:'php/insertBlogs.php',
+                data:{'title':title,'categoryId':categoryId,'keyword':keyword,'content':content},
+                success:function(result){
+                    alert(result);
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
