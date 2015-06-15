@@ -3,14 +3,23 @@
 <head>
     <meta charset="utf-8">
     <script src="js/jquery-1.8.2.min.js"></script>
+    <style>
+    		form{
+    			width: 800px;
+ 			margin: 20px auto 0 auto;
+ 			color: gray;
+ 			line-height: 40px;
+ 			font-size: 20px;
+    		}
+    </style>
     <title></title>
 </head>
 <body>
 <form id="myform">
     <!--title,categoryId,keyword,content-->
     <label>Title:<input id="title" type="text"/></label><br/>
-    <label>Category:<input name="category" type="radio" value="1"/>CSS</label>
-    Category:<br>
+    <label>Category:<br>
+    	<input name="category" type="radio" value="1"/>CSS</label>
     <label><input name="category" type="radio" value="2">HTML5</label>
     <label><input name="category" type="radio" value="3" />JavaScript</label>
     <label><input name="category" type="radio" value="4"/>Database</label>

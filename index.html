@@ -1,209 +1,197 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>Faye's BLOG</title>
-    <link rel="stylesheet" href="css/bolgIndex.css"/>
-    <script src="js/jquery-1.8.2.min.js"></script>
-</head>
-<body>
-<div class="banner"></div>
-<nav class="whiteNav">
-    <ul>
-        <li><a href="#" id="allActicle" data-category-id="all">Blogs</a></li>
-        <li><a href="#">me</a></li>
-        <li><a href="#">留言</a></li>
-    </ul>
-</nav>
-<div class="tool">
-    视图模式:&nbsp;<a href="#" id="general">图文</a>&nbsp;&nbsp;<a href="#" id="list">列表</a>&nbsp;&nbsp;&nbsp;
-    <input type="text" placeholder="搜索内容"/>&nbsp;<input type="button" value="search">
-</div>
-<div class="container">
-    <nav class="blogNav">
-        <ul>
-            <li><a href="#" data-category-id="all">ALL</a></li>
-            <li><a href="#" data-category-id="1 or blogs.categoryId=2 ">CSS & HTML5</a></li>
-            <li><a href="#" data-category-id="3">JavaScript</a></li>
-            <li><a href="#" data-category-id="4">Database</a></li>
-            <li><a href="#" data-category-id="5">Design & Thinking</a></li>
-            <li><a href="#" data-category-id="6">Resource</a></li>
-        </ul>
-    </nav>
-    <div class="blogList">
-        <div class="blogListDetail" id="blogListContainer"></div>
-        <div class="pagination">页数：</div>
-    </div>
-</div>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="css/index.css" />
+		<title>Faye's Page</title>
+	</head>
 
+	<body>
+		<div class="content">
+			<section class="aboutMe">
+				<article class="shortDescription"><!--总概括-->
+					<div class="circle">
+						<div class="inner"></div>
+					</div>
+					<h1>一个简洁的设计师</h1>
+					<aside>简单的设计需要精致的细节，复杂的设计需要简约的美感。</aside>
+					<i class="next" >&nbsp;</i>
+				</article>
+				<div class="page2">
+					<article class="selfIntroduce">
+						<h1>不断前行，<br />只为心中的那一份自由</h1>
+                        <p>我出生在一个平凡而普通的家庭，从小就被教育凡事要循规蹈矩。在父母的眼里，只要找一份体面的工作，从基层做起，一步步努力，十年后便可以有好生活。而我却不甘于普通，从营销转向前端开发，是内心的呐喊&nbsp;“&nbsp;我可以创造一些东西，让世界变得有一点点不同&nbsp;”。<em>I'm a creater.</em></p>
+					</article>
+				</div>
+                <i class="next">&nbsp;</i>
+			</section>
+			<section class="pages myStory">
+				<h1>Some story about Me.</h1>
+				<aside>Click the box below</aside>
+				<div class="boxContainer" >
+					<div class="littleBox color1 box1" data-cta-target=".modal-1"></div>
+					<div class="littleBox color2 box2" data-cta-target=".modal-2"></div>
+					<div class="littleBox color3 box3" data-cta-target=".modal-3"></div>
+					<div class="littleBox color4 box4" data-cta-target=".modal-4"></div>
+					<div class="littleBox color5 box5" data-cta-target=".modal-5"></div>
+					<div class="littleBox color6 box6" data-cta-target=".modal-6"></div>
+					<div class="littleBox color7 box7" data-cta-target=".modal-7"></div>
+				</div>
+				<a href="mailto:faye.zhang0907@gmail.com">My Email:faye.zhang0907@gmail.com</a>|<a href="https://plus.google.com/114435270277283060663/about">G+</a>
+			</section>
+			<section class=" showingPage">
+					<article class="color1 modal modal-1" style="background-color: black">
+                        <header>骑车去珠海</header>
+                        <img src="img/introtuce/骑车去珠海全程轨迹图.jpg"/>
+                        <p>3天2夜，和小伙伴们一起穿越“深圳－珠海”，全程二百二十多公里</p>
+					</article>
+					<article class="color2 modal modal-2">
+                        <header>An Ingress Player</header>
+                        <img src="img/introtuce/ingress.jpg" /><br />
+                        <p>2014年10月24-25日,深圳Ingress玩家为GDG准备的一份礼物。超过536条link，蓝绿军超过45位agent共同参与配合。</p>
 
-<script src="js/cta.js"></script>
-<script>
-    var showType = 'all';//choice all or another categories to show article
-    var showModel = 'general'; //make the model to show 'general' or 'list'
-    var nowPage = '1';
+					</article>
+					<article class="color3 modal modal-3">
+						<header>爱动手爱折腾的娃</header>
+						<p class="content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;偶尔看到一些很cool的博客，心痒痒它们是怎么实现的，如果把它们整合成一个整体，做成一个Blog会不会很棒。于是兴奋地开始计划：用大概2.5周时间，完成个人介绍页面，和整体博客的设计及功能实现。谷歌了很多这方面的资料：H5&CSS、JS、PHP&MySQL等。设计整体框架、编程、调试，每一步都有很多新的发现，我为这些发现乐此不疲！</p>
 
-    $(document).ready(function () {
+					</article>
+					<article class="color4 modal modal-4">
+                        <header>一个摄影爱好者</header>
+                        <img src="img/introtuce/nanjing.jpg"/>
+                        <p>重回南京“古秦淮”</p>
 
-        //first come to web-index,choice all article to show,showModel only have 2 value:'general' or 'list'
-        function getList() {
-            $.ajax({
-                type: 'post',
-                url: 'php/bloglist.php',
-                data: {'showType': showType, 'showModel': showModel, 'nowPage': nowPage},
-                success: function (json) {
-                    var data = JSON.parse(json);
-                    var html = '';
-                    if (showModel == 'general') {
-                        $.each(data, function (i, item) {
-                            html += '<section>';
-                            html += '<h3>' + data[i]['title'] + '</h3>';
-                            html += '<aside>On:' + data[i]['categoryName'] + '&nbsp;&nbsp;&nbsp;&nbsp;Time:' + data[i]['editTime'] + '&nbsp;&nbsp;&nbsp;&nbsp;Reader:' + data[i]['readerNum'] + '</aside>';
-                            if (data[i]['image'] != 'none') {
-                                html += '<img src="' + data[i]['image'] + '"/>';
-                            }
-                            html += '<p class="contentHolder">' + data[i]['substring(content,1,20)'] + '</p>';
-                            html += '<p class="more" data-article-id="' + data[i]['articleId'] + '">read more</p></section>';
-                        });
-                    } else if (showModel == 'list') {
-                        $.each(data, function (i, item) {
-                            html += '<section data-articleId="' + data[i]['articleId'] + '">';
-                            html += '<h3>' + data[i]['title'] + '</h3>';
-                            html += '<aside>On:' + data[i]['categoryName'] + '&nbsp;&nbsp;&nbsp;&nbsp;Time:' + data[i]['editTime'] + '&nbsp;&nbsp;&nbsp;&nbsp;Reader:' + data[i]['readerNum'] + '</aside>';
-                            html += '<p class="contentHolderList" style="display:none;"></p>';
-                            html += '<p class="more" data-article-id="' + data[i]['articleId'] + '">read more</p></section>';
-                        });
-                    }
-                    $('#blogListContainer').html(html);
+                    </article>
+					<article class="color5 modal modal-5">
+                        <header>偶尔做下饭</header>
+                        <img src="img/introtuce/food.jpg"/>
+                        <p>ヽ(〃∀〃)ﾉ</p>
+                    </article>
+					<article class="color6 modal modal-6">
+						<header>尊重生命</header>
+                        <img src="img/introtuce/life.jpg"/>
+                        <p>discovery the secret of life</p>
+                    </article>
+					<article class="color7 modal modal-7">
+						<header>&nbsp;</header>
+						<p class="content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未完待续...</p>
+					</article>
+			</section>
+			
+	 	</div>
+	 	<!--<svg version="1.1" xmlns='http://www.w3.org/2000/svg'>
+ <filter id='blur'>
+   <feGaussianBlur stdDeviation='6' />
+   </filter>
+</svg>-->
+		<script src="js/jquery-1.8.2.min.js"></script>
+		<script src="js/jquery.boxloader.min.js"></script>
+		<script src="js/cta.js"></script>
+		<script>
+			$(document).ready(function(){
+				
+				//This is the ways about boxes come out.data-cta-target
+
+//				function closeShowingBox(){
+//					 var showBox=document.querySelector('.show');
+//					 if(!showBox) return;
+//					 showBox.classList.remove('show');
+//
+//				}
+				var boxes=document.querySelector('.boxContainer');
+				boxes.addEventListener('click',function(event){
+					var trigger=event.target;
+					var target=document.querySelector(trigger.dataset.ctaTarget);
+					if(target){
+						cta(trigger,target,{relativeToWindow:true},function showBox(){
+							target.classList.add('show');
+						});
+					}
+				});
+				var showpage=document.querySelector('.showingPage');
+				showpage.addEventListener('click',function(event){
+					var nowPage=event.target;
+					if(nowPage.classList.contains('show')){
+						nowPage.classList.remove('show');
+					}
+				});
+//
+//				document.addEventListener('click',function(e){
+//					var trigger=e.target;
+//					var target=document.querySelector(trigger.dataset.ctaTarget);
+//					if(trigger.dataset.ctaTarget){
+//						changeModal=cta(trigger,target,{relativeToWindow: true},function showModal(){
+//							target.classList.add('show');});
+//					}else if(trigger.classList.contains('show')){
+//						closeShowingBox();
+//					}
+//				});
+			});
+				
+//					$('.modal').bind('click',function(){
+//						if(this.classList.contains('show')){
+//							this.classList.remove('show');
+//						}
+//						
+//					});
+				
+				
+				
+				
+
+				
+//			clickBtn.addEventListener('click',function(event){
+//				var trigger=event.target;
+//				alert(trigger.className);
+//				var target=document.querySelector(trigger.dataset.ctaTarget);
+//				if(trigger.dataset.ctaTarget){
+//					changeModal=cta(trigger,target,{relativeToWindow: true;},function showModal(){
+//						target.classList.add('show');
+//					});
+//				}
+//			})		
+		
+		
+		
+		
+		//这是关于各个page主要元素的出现方式
+		
+			$(document).ready(function(){
+				//---------the 'more' scroll function,start---------
+				$('i').on('click',function(){
+					//alert($(this).parent().next());
+                    var $nextPage=$(this).parent().next();
+                    scroll($nextPage);
+				});
+                function scroll(nextpage){
+                    $('html, body').animate({
+                        scrollTop: nextpage.offset().top
+                    }, {
+                        queue: false,
+                        duration: 1000});
                 }
-            });
-        }
+                //---------the 'more' scroll function,end---------
 
-        getList();
-        function getPages() {
-            $.ajax({
-                type: "post",
-                url: "php/getPagesCount.php",
-                data: {'showType': showType, 'showModel': showModel},
-                success: function (pages) {
-                    var html = '页数：';
-                    for (var i = 1; i <= pages; i++) {
-                        html = html + '<a href="#" class="pageNum">' + i + '</a>';
-                        //console.log(html);
-                    }
-                    $('.pagination').html(html);
-                }
-            });
-        };
-        getPages();
-        $('.pagination').on('click', 'a', function (event) {
-            event.preventDefault();
-            //console.log($(this).text());
-            nowPage = $(this).text();
-            getList();
-            return false;
-        });
-        $('#general').on('click', function (event) {
-            event.preventDefault();
-            if (showModel == 'general')
-                return false;
-            else {
-                showModel = 'general';
-                nowPage = '1';
-                getList();
-                getPages();
-            }
-        });
-        $('#list').on('click', function (event) {
-            event.preventDefault();
-            if (showModel == 'list')
-                return false;
-            else {
-                showModel = 'list';
-                nowPage = '1';
-                getList();
-                getPages();
-            }
-        });
-        $('.blogNav').on('click', 'a', function (event) {
-            event.preventDefault();
-            showType = $(this).data('category-id');
-            nowPage = '1';
-            getList();
-            getPages();
-        });
-        function getArticleContent(articleId, success) {
-            $.ajax({
-                type: "post",
-                url: "php/getContent.php",
-                //async:false,     //false表示同步
-                data: {'articleId': articleId},
-                success: function (content) {
-                    success(content);
-                }
-            });
-        }
-        function animateHeight(){
-            var newHeight = $(".box-inner").height();
-            $(".box").animate({
-                height: newHeight
-            }, 500);
-        }
-
-        $('#blogListContainer').on('click', '.more', function () {
-            var articleId = $(this).data('article-id');
-            var container = this;
-            if ($(this).text() == 'read more') {
-
-                if (showModel == 'list') {
-                    getArticleContent(articleId, function (content) {
-                        $(container).prev().html(content);
-                        $(container).prev().slideDown('slow');
-                        $(container).html('close');
-                    });
-                }else{
-                    getArticleContent(articleId, function (content) {
-                        var minHeight=20;
-                        $(container).prev().html(content);
-                        var currentHeight= $(container).prev().innerHeight();
-                        var autoHeight=$(container).prev().css('height', 'auto').innerHeight();
-                        $(container).prev().css('height',currentHeight).animate({
-                            height: (currentHeight == autoHeight ? minHeight : autoHeight)
-                        });
-                        $(container).html('close');
-                    });
-                }
-            } else {
-                console.log('showModel is:'+showModel);
-                if(showModel == 'list'){
-                    $(container).prev().slideUp('slow');
-                    $(container).prev().html('');
-                    $(container).html('read more');
-                }
-                else{
-                    var minHeight=20;
-                    var currentHeight= $(container).prev().innerHeight();
-                    var autoHeight=$(container).prev().css('height', 'auto').innerHeight();
-                    $(container).prev().css('height',currentHeight).animate({
-                        height: (currentHeight == autoHeight ? minHeight : autoHeight)
-                    });
-                    $(container).html('read more');
-                }
-
-            }
-        });
-
-        $('#allActicle').on('click', function (event) {
-            event.preventDefault();
-            showType = 'all';
-            showModel = 'general';
-            nowPage = '1';
-            getList();
-            getPages();
-        });
+				//page3，boxContainer的出现方式，从下浮现，动画过渡时间2s
+				$(".boxContainer").boxLoader({
+				    direction:"y",
+				    position: "50%",
+				    effect: "fadeIn",
+				    duration: "2s",
+				    windowarea: "50%"
+				});
+			
+			});
+			
 
 
-    });
-</script>
-</body>
+
+			
+		
+			
+			
+			
+
+		</script>
+	</body>
 </html>
