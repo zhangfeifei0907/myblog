@@ -4,69 +4,60 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="css/myblog.css" />
 		<title>Faye's Page</title>
-		<style>
-
-			
-			body .content #myHead{
-				text-align: center;
-				font-size: 30px;
-				width: 500px;
-				height: 1000px;
-				overflow-x: hidden;
-				background-color: antiquewhite;
-				}
-				
-			body .content #myHead li:hover{cursor:pointer;}
-		</style>
 	</head>
 
 	<body>
 		<div class="content">
-			<div class="first">
-				<article class="alignCenter selfFace"><!--总概括-->
+			<section class="aboutMe">
+				<article class="shortDescription"><!--总概括-->
 					<div class="circle">
 						<div class="inner"></div>
 					</div>
-					<header>一个喜欢自由与简洁的人</header>
+					<h1>一个简洁的设计师</h1>
 					<aside>简单的设计需要精致的细节，复杂的设计需要简约的美感。</aside>
 					<i>more</i>
 				</article>
-				<article class="selfIntroduce">
-					<header>不断前行，<br />只为心中的那一份自由</header>
-					<section>走过很多弯路，计算机出身，毕业后一直从事销售工作。卖房子、做企业咨询、运营客户，最终确定做前端开发。希望带给用户更好的产品，更好的用户体验。不断改进修正，是一个让我激动的过程，我喜欢化繁为简，把本质的东西，自然地表达出来。</section>
-				</article>
-			</div>
-			<article class="singlePage">
-				<header class="boxHead">Some story about Life.</header>
-				<aside>Click any box below</aside>
-				<div class="boxContainer" id="test">
-					<div class="littleBox" data-cta-target=".modal-1"></div>
-					<div class="littleBox" data-cta-target=".modal-2"></div>
-					<div class="littleBox" data-cta-target=".modal-3"></div>
-					<div class="littleBox" data-cta-target=".modal-4"></div>
-					<div class="littleBox" data-cta-target=".modal-5"></div>
-					<div class="littleBox" data-cta-target=".modal-6"></div>
-					<div class="littleBox" data-cta-target=".modal-7"></div>
-				</div>
-			</article>
-			<div class="showBoxes">
-					<article class="modal modal-1">
-						<header>Ingress</header>
-						<aside>The world around you is not what it seems.</aside>
-						<img src="img/ingress.png" /><br />
-						<section>2014年10月25日深圳园博园，简称“菊花”行动。超过536条link，蓝绿军超过45位agent的参与配合。Yeah!</section>
+				<div class="page2">
+					<article class="selfIntroduce">
+						<h1>不断前行，<br />只为心中的那一份自由</h1>
+                        <p>我出生在一个平凡而普通的家庭，从小就被教育凡事要循规蹈矩。在父母的眼里，只要找一份体面的工作，从基层做起，一步步努力，十年后便可以有好生活。而我却不甘于普通，从营销转向前端开发，是内心的呐喊&nbsp;“&nbsp;我可以创造一些东西，让世界变得有一点点不同&nbsp;”。<em>I'm a creater.</em></p>
 					</article>
-					<article class="modal modal-2">
+				</div>
+                <i>more</i>
+			</section>
+			<section class="pages myStory">
+				<h1>Some story about Me.</h1>
+				<aside>Click the box below</aside>
+				<div class="boxContainer" >
+					<div class="littleBox color1 box1" data-cta-target=".modal-1"></div>
+					<div class="littleBox color2 box2" data-cta-target=".modal-2"></div>
+					<div class="littleBox color3 box3" data-cta-target=".modal-3"></div>
+					<div class="littleBox color4 box4" data-cta-target=".modal-4"></div>
+					<div class="littleBox color5 box5" data-cta-target=".modal-5"></div>
+					<div class="littleBox color6 box6" data-cta-target=".modal-6"></div>
+					<div class="littleBox color7 box7" data-cta-target=".modal-7"></div>
+				</div>
+			</section>
+			<section class="pages showingPage">
+					<article class="color1 modal modal-1">
+						<header>An Ingress Player</header>
+						<img src="img/ingress.png" /><br />
+						<p>2014年10月25日深圳园博园，简称“菊花”行动。超过536条link，蓝绿军超过45位agent的参与配合。Yeah!</p>
+					</article>
+					<article class="color2 modal modal-2">
 						<header>骑车去珠海</header>
 						<section></section>
 					</article>
-					<article class="modal modal-3"></article>
-					<article class="modal modal-4"></article>
-					<article class="modal modal-5"></article>
-					<article class="modal modal-6"></article>
-					<article class="modal modal-7"></article>
+					<article class="color3 modal modal-3">
+						<header>骑车去珠海</header>
+						<section></section>
+					</article>
+					<article class="color4 modal modal-4"></article>
+					<article class="color5 modal modal-5"></article>
+					<article class="color6 modal modal-6"></article>
+					<article class="color7 modal modal-7"></article>
 					
-				</div>
+				</section>
 	 	</div>
 	 	<!--<svg version="1.1" xmlns='http://www.w3.org/2000/svg'>
  <filter id='blur'>
@@ -80,26 +71,42 @@
 			$(document).ready(function(){
 				
 				//This is the ways about boxes come out.data-cta-target
-				var changeModal;
-				function closeShowingBox(){
-					 var showBox=document.querySelector('.modal.show');
-					 if(!showBox) return;
-					 showBox.classList.remove('show');
-					 if (changeModal) {
-						changeModal();
-						changeModal = null;
-					 }
-				}
-				document.addEventListener('click',function(e){ 
-					var trigger=e.target;
+
+//				function closeShowingBox(){
+//					 var showBox=document.querySelector('.show');
+//					 if(!showBox) return;
+//					 showBox.classList.remove('show');
+//
+//				}
+				var boxes=document.querySelector('.boxContainer');
+				boxes.addEventListener('click',function(event){
+					var trigger=event.target;
 					var target=document.querySelector(trigger.dataset.ctaTarget);
-					if(trigger.dataset.ctaTarget){
-						changeModal=cta(trigger,target,{relativeToWindow: true},function showModal(){
-							target.classList.add('show');});
-					}else if(trigger.classList.contains('show')){
-						closeShowingBox();
+					if(target){
+						cta(trigger,target,{relativeToWindow:true},function showBox(){
+							target.classList.add('show');
+						});
 					}
 				});
+				var showpage=document.querySelector('.showingPage');
+				showpage.addEventListener('click',function(event){
+					var nowPage=event.target;
+					if(nowPage.classList.contains('show')){
+						nowPage.classList.remove('show');
+					}
+				});
+//
+//				document.addEventListener('click',function(e){
+//					var trigger=e.target;
+//					var target=document.querySelector(trigger.dataset.ctaTarget);
+//					if(trigger.dataset.ctaTarget){
+//						changeModal=cta(trigger,target,{relativeToWindow: true},function showModal(){
+//							target.classList.add('show');});
+//					}else if(trigger.classList.contains('show')){
+//						closeShowingBox();
+//					}
+//				});
+			});
 				
 //					$('.modal').bind('click',function(){
 //						if(this.classList.contains('show')){
@@ -111,7 +118,7 @@
 				
 				
 				
-			});
+
 				
 //			clickBtn.addEventListener('click',function(event){
 //				var trigger=event.target;
@@ -130,9 +137,22 @@
 		//这是关于各个page主要元素的出现方式
 		
 			$(document).ready(function(){
-				$('.first i').click(scroll);
-				
-				//第三页，boxContainer的出现方式，从下浮现，动画过渡时间2s
+				//---------the 'more' scroll function,start---------
+				$('i').on('click',function(){
+					//alert($(this).parent().next());
+                    var $nextPage=$(this).parent().next();
+                    scroll($nextPage);
+				});
+                function scroll(nextpage){
+                    $('html, body').animate({
+                        scrollTop: nextpage.offset().top
+                    }, {
+                        queue: false,
+                        duration: 1000});
+                }
+                //---------the 'more' scroll function,end---------
+
+				//page3，boxContainer的出现方式，从下浮现，动画过渡时间2s
 				$(".boxContainer").boxLoader({
 				    direction:"y",
 				    position: "50%",
@@ -143,14 +163,8 @@
 			
 			});
 			
-			function scroll(){
-						$('html, body').animate({
-			        			scrollTop: $('article.selfIntroduce').offset().top
-						    }, {
-						    	queue: false,
-						    	duration: 1000});
-			}
-// 
+
+
 
 			
 		

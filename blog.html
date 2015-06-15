@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Faye's BLOG</title>
+    <link rel="stylesheet" href="css/bolg.css"/>
+    <script src="js/jquery-1.8.2.min.js"></script>
+</head>
+<body>
+<div class="banner"></div>
+<nav class="whiteNav">
+    <ul>
+        <li><a href="#" id="allActicle" data-category-id="all">Blogs</a></li>
+        <li><a href="#">me</a></li>
+        <li><a href="#">留言</a></li>
+    </ul>
+</nav>
+<div class="tool">
+    视图模式:&nbsp;<a href="#" id="general">图文</a>&nbsp;&nbsp;<a href="#" id="list">列表</a>&nbsp;&nbsp;&nbsp;
+    <input type="text" placeholder="搜索内容"/>&nbsp;<input type="button" value="search">
+</div>
+<div class="container">
+    <nav class="blogNav">
+        <ul>
+            <li><a href="#" data-category-id="all">ALL</a></li>
+            <li><a href="#" data-category-id="1 or blogs.categoryId=2 ">CSS & HTML5</a></li>
+            <li><a href="#" data-category-id="3">JavaScript</a></li>
+            <li><a href="#" data-category-id="4">Database</a></li>
+            <li><a href="#" data-category-id="5">Design & Thinking</a></li>
+            <li><a href="#" data-category-id="6">Resource</a></li>
+        </ul>
+    </nav>
+    <div class="blogList">
+        <div class="blogListDetail" id="blogListContainer"></div>
+        <div class="pagination">页数：</div>
+    </div>
+</div>
+
+
+<script src="js/cta.js"></script>
+<script>
+    var showType = 'all';//choice all or another categories to show article
+    var showModel = 'general'; //make the model to show 'general' or 'list'
+    var nowPage = '1';
+
+    $(document).ready(function () {
+
+        //first come to web-index,choice all article to show,showModel only have 2 value:'general' or 'list'
+        function getList() {
+            $.ajax({
+                type: 'post',
+                url: 'php/bloglist.php',
+                data: {'showType': showType, 'showModel': showModel, 'nowPage': nowPage},
+                success: function (json) {
+                    var data = JSON.parse(json);
+                    var html = '';
+                    if (showModel == 'general') {
+                        $.each(data, function (i, item) {
+                            html += '<section>';
+                            html += '<h3>' + data[i]['title'] + '</h3>';
+                            html += '<aside>On:' + data[i]['categoryName'] + '&nbsp;&nbsp;&nbsp;&nbsp;Time:' + data[i]['editTime'] + '&nbsp;&nbsp;&nbsp;&nbsp;Reader:' + data[i]['readerNum'] + '</aside>';
+                            if (data[i]['image'] != 'none') {
+                                html += '<img src="' + data[i]['image'] + '"/>';
+                            }
+                            html += '<p class="contentHolder">' + data[i]['substring(content,1,20)'] + '</p>';
+                            html += '<p class="more" data-article-id="' + data[i]['articleId'] + '">read more</p></section>';
+                        });
+                    } else if (showModel == 'list') {
+                        $.each(data, function (i, item) {
+                            html += '<section data-articleId="' + data[i]['articleId'] + '">';
+                            html += '<h3>' + data[i]['title'] + '</h3>';
+                            html += '<aside>On:' + data[i]['categoryName'] + '&nbsp;&nbsp;&nbsp;&nbsp;Time:' + data[i]['editTime'] + '&nbsp;&nbsp;&nbsp;&nbsp;Reader:' + data[i]['readerNum'] + '</aside>';
+                            html += '<p class="contentHolderList" style="display:none;"></p>';
+                            html += '<p class="more" data-article-id="' + data[i]['articleId'] + '">read more</p></section>';
+                        });
+                    }
+                    $('#blogListContainer').html(html);
+                }
+            });
+        }
+
+        getList();
+        function getPages() {
+            $.ajax({
+                type: "post",
+                url: "php/getPagesCount.php",
+                data: {'showType': showType, 'showModel': showModel},
+                success: function (pages) {
+                    var html = '页数：';
+                    for (var i = 1; i <= pages; i++) {
+                        html = html + '<a href="#" class="pageNum">' + i + '</a>';
+                        //console.log(html);
+                    }
+                    $('.pagination').html(html);
+                }
+            });
+        };
+        getPages();
+        $('.pagination').on('click', 'a', function (event) {
+            event.preventDefault();
+            //console.log($(this).text());
+            nowPage = $(this).text();
+            getList();
+            return false;
+        });
+        $('#general').on('click', function (event) {
+            event.preventDefault();
+            if (showModel == 'general')
+                return false;
+            else {
+                showModel = 'general';
+                nowPage = '1';
+                getList();
+                getPages();
+            }
+        });
+        $('#list').on('click', function (event) {
+            event.preventDefault();
+            if (showModel == 'list')
+                return false;
+            else {
+                showModel = 'list';
+                nowPage = '1';
+                getList();
+                getPages();
+            }
+        });
+        $('.blogNav').on('click', 'a', function (event) {
+            event.preventDefault();
+            showType = $(this).data('category-id');
+            nowPage = '1';
+            getList();
+            getPages();
+        });
+        function getArticleContent(articleId, success) {
+            $.ajax({
+                type: "post",
+                url: "php/getContent.php",
+                //async:false,     //false表示同步
+                data: {'articleId': articleId},
+                success: function (content) {
+                    success(content);
+                }
+            });
+        }
+        function animateHeight(){
+            var newHeight = $(".box-inner").height();
+            $(".box").animate({
+                height: newHeight
+            }, 500);
+        }
+
+        $('#blogListContainer').on('click', '.more', function () {
+            var articleId = $(this).data('article-id');
+            var container = this;
+            if ($(this).text() == 'read more') {
+
+                if (showModel == 'list') {
+                    getArticleContent(articleId, function (content) {
+                        $(container).prev().html(content);
+                        $(container).prev().slideDown('slow');
+                        $(container).html('close');
+                    });
+                }else{
+                    getArticleContent(articleId, function (content) {
+                        var minHeight=20;
+                        $(container).prev().html(content);
+                        var currentHeight= $(container).prev().innerHeight();
+                        var autoHeight=$(container).prev().css('height', 'auto').innerHeight();
+                        $(container).prev().css('height',currentHeight).animate({
+                            height: (currentHeight == autoHeight ? minHeight : autoHeight)
+                        });
+                        $(container).html('close');
+                    });
+                }
+            } else {
+                console.log('showModel is:'+showModel);
+                if(showModel == 'list'){
+                    $(container).prev().slideUp('slow');
+                    $(container).prev().html('');
+                    $(container).html('read more');
+                }
+                else{
+                    var minHeight=20;
+                    var currentHeight= $(container).prev().innerHeight();
+                    var autoHeight=$(container).prev().css('height', 'auto').innerHeight();
+                    $(container).prev().css('height',currentHeight).animate({
+                        height: (currentHeight == autoHeight ? minHeight : autoHeight)
+                    });
+                    $(container).html('read more');
+                }
+
+            }
+        });
+
+        $('#allActicle').on('click', function (event) {
+            event.preventDefault();
+            showType = 'all';
+            showModel = 'general';
+            nowPage = '1';
+            getList();
+            getPages();
+        });
+
+
+    });
+</script>
+</body>
+</html>
